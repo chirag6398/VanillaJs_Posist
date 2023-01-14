@@ -38,7 +38,7 @@ signInBtn.addEventListener("click",function(e){
 
                 if(user){
                     sessionStorage.setItem("email",email);
-                    window.location.href="./home.html";
+                    window.location.href="./index.html";
                 }else{
 
                     alert("Enter Correct email and password");

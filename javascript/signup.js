@@ -4,6 +4,14 @@ let Name=document.getElementById("name");
 let Email=document.getElementById("email");
 let Password=document.getElementById("password");
 
+function checkUserExist(db,user){
+    
+    const check=db.find((e)=>{
+        // alert(e.email==user.email)
+        return e.email==user.email
+    });
+    return check;
+}
 
 signUpBtn.addEventListener("click",function(e){
                 
@@ -13,7 +21,7 @@ signUpBtn.addEventListener("click",function(e){
                let email=Email.value
                let password=Password.value
                 
-               eamil=email.trim();
+               email=email.trim();
                password=password.trim();
                name=name.trim(); 
 
@@ -40,6 +48,8 @@ signUpBtn.addEventListener("click",function(e){
 
                 }
 
+
+
                 let newUser={
                     name,
                     email,
@@ -51,6 +61,12 @@ signUpBtn.addEventListener("click",function(e){
                     
                 if (window.localStorage.getItem("users") != null) {
                     const users = JSON.parse(window.localStorage.getItem("users"));
+                    const exist=checkUserExist(users,newUser);
+                   
+                    if(exist){
+                        alert("email id already exist");
+                        return;
+                    }
                     users.push(newUser);
                     window.localStorage.setItem("users", JSON.stringify(users));
                   } else {

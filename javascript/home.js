@@ -24,7 +24,8 @@ if(user===null){
                     let mainDiv=document.getElementById("container");
                     // console.log(mainDiv)
                     div1.classList.add("card");
-                    div1.style.width="18rem";
+                    div1.style.width="280px";
+                    div1.style.height="430px"
                     div1.style.display="flex";
                     div1.style.alignItems="center";
                     div1.style.marginBottom="10px"
