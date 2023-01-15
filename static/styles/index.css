@@ -20,8 +20,9 @@
     justify-content: center;
     align-items: center;
     box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
-    height: 59vh;
+    /* height: 59vh; */
     /* width: 49vw; */
+    padding: 20px;
     flex-direction: column;
 }
 .mainHeading{
@@ -108,4 +109,18 @@ button{
 label{
     color: red;
     visibility: hidden;
+}
+#passwordValidateBox{
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    flex-direction: column;
+}
+.invalid{
+    color: gray;
+    opacity: 0.7;
+}
+.valid{
+    color: green;
+    opacity: 0.9;
 }

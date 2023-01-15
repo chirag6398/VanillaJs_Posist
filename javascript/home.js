@@ -1,10 +1,38 @@
-let user=undefined;
+let user=null;
 
-user=sessionStorage.getItem("email");
-console.log(user);
+
+user=JSON.parse((sessionStorage.getItem("currentUser")));
+
+// console.log(user);
+
+
+function addItem(userCart,element){
+    let exist=userCart.cart.findIndex((order)=>{ return order.id===element.id; })
+    // console.log(exist)
+    if(exist!==-1){
+        userCart.cart[exist].quantity+=1;
+
+    }else{
+        let newOrder={
+            quantity:1,
+            name:user.name,
+            email:user.email,
+            ...element
+        }
+        userCart.cart.push(newOrder);
+    }
+    console.log(userCart)
+}
 if(user===null){
     window.location.href="./signup.html"
 }else{
+
+    let userCart={
+        name:user.name,
+        email:user.email,
+        cart:[]
+    }
+
     function trimString(str){
         if(str.length>50){
             return str.substring(0,50)+"..."
@@ -22,7 +50,9 @@ if(user===null){
                     let p2=document.createElement("p");
                     let p3=document.createElement("p");
                     let mainDiv=document.getElementById("container");
-                    // console.log(mainDiv)
+                    let addBtn=document.createElement("button");
+
+
                     div1.classList.add("card");
                     div1.style.width="280px";
                     div1.style.height="430px"
@@ -51,28 +81,29 @@ if(user===null){
                     div2.appendChild(p2);
                     div2.appendChild(p1);
 
+                    // addBtn.classList.add("btn btn-warning");
+                    addBtn.className+="btn btn-warning"
+                    addBtn.innerText="Add To Cart";
+                    div2.appendChild(addBtn);
+
+                    addBtn.addEventListener("click",()=>{
+                        addItem(userCart,element);
+
+                        sessionStorage.setItem("userCart",JSON.stringify(userCart));
+
+                    })
                     
 
                 })
             }
             )
-    // console.log(JSON.parse(user));
+    
 }
 
 function logoutHandler(){
     console.log("hi")
-    sessionStorage.removeItem("email");
+    sessionStorage.removeItem("currentUser");
     window.location.href="./login.html";
 }
 
-{/* <div class="card" style="width: 18rem;">
-                <img class="card-img-top" src="..." alt="Card image cap">
-                <div class="card-body">
-                <ul class="list-group list-group-flush">
-                    <li class="list-group-item">Cras justo odio</li>
-                    <li class="list-group-item">Dapibus ac facilisis in</li>
-                    <li class="list-group-item">Vestibulum at eros</li>
-                </ul>
-                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                </div>
-              </div> */}
+{/* <button type="button" class="btn btn-warning">Warning</button> */}
