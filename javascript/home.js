@@ -73,7 +73,7 @@ if(user===null){
                     p1.className+="card-text";
                     p1.innerText=trimString(element.description);
                     p2.className+="card-text";
-                    p2.innerText="Rs. "+element.price;
+                    p2.innerText="Rs. "+Math.ceil(element.price);
                     p3.className+="card-text";
                     p3.style.fontWeight="300";
                     p3.innerText=element.title;
