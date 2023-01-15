@@ -36,7 +36,7 @@ signInBtn.addEventListener("click",function(e){
                 
 
                 if(user){
-                    sessionStorage.setItem("currentUser",JSON.stringify(user));
+                    window.localStorage.setItem("currentUser",JSON.stringify(user));
                     window.location.href="./index.html";
                 }else{
 

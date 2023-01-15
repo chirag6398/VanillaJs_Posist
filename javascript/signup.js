@@ -141,7 +141,8 @@ signUpBtn.addEventListener("click",function(e){
                     name,
                     email,
                     password,
-                    number
+                    number,
+                    cart:[]
 
                 }
 
@@ -155,7 +156,7 @@ signUpBtn.addEventListener("click",function(e){
                         alert("user already exist");
                         return;
                     }
-                    
+
                     users.push(newUser);
                     window.localStorage.setItem("users", JSON.stringify(users));
                   } else {

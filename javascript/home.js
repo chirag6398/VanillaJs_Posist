@@ -1,10 +1,19 @@
 let user=null;
 
 
-user=JSON.parse((sessionStorage.getItem("currentUser")));
+user=JSON.parse((window.localStorage.getItem("currentUser")));
 
 // console.log(user);
-
+function addItemToUser(userCart){
+    let users=JSON.parse(window.localStorage.getItem("users"));
+    let indx=users.findIndex(el=>{
+        return el.email===userCart.email;
+    });
+    console.log(users)
+    users[indx].cart=userCart.cart;
+    alert(JSON.stringify(users));
+    window.localStorage.setItem("users",JSON.stringify(users))
+}
 
 function addItem(userCart,element){
     let exist=userCart.cart.findIndex((order)=>{ return order.id===element.id; })
@@ -23,10 +32,13 @@ function addItem(userCart,element){
     }
     console.log(userCart)
 }
+
+
 if(user===null){
     window.location.href="./signup.html"
 }else{
-
+    document.getElementById("signup").style.display="none";
+    document.getElementById("signin").style.display="none";
     let userCart={
         name:user.name,
         email:user.email,
@@ -42,6 +54,7 @@ if(user===null){
             .then(res=>res.json())
             .then(res=>{
                 console.log(res)
+                document.getElementById("loading").style.display="none";
                 res.forEach(element => {
                     let div1=document.createElement("div");
                     let img=document.createElement("img");
@@ -55,7 +68,7 @@ if(user===null){
 
                     div1.classList.add("card");
                     div1.style.width="280px";
-                    div1.style.height="430px"
+                    // div1.style.height="430px"
                     div1.style.display="flex";
                     div1.style.alignItems="center";
                     div1.style.marginBottom="10px"
@@ -90,6 +103,7 @@ if(user===null){
                         addItem(userCart,element);
 
                         sessionStorage.setItem("userCart",JSON.stringify(userCart));
+                        addItemToUser(userCart);
 
                     })
                     
@@ -100,9 +114,10 @@ if(user===null){
     
 }
 
+
 function logoutHandler(){
     console.log("hi")
-    sessionStorage.removeItem("currentUser");
+    window.localStorage.removeItem("currentUser");
     window.location.href="./login.html";
 }
 
